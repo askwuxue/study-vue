@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+    <button id="btn-change">change</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom-class.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom-props.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom-style.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom-eventlisteners.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/h.js"></script>
+    <script>
+        let snabbdom = window.snabbdom
+
+        // 定义patch
+        let patch = snabbdom.init([
+            snabbdom_class,
+            snabbdom_props,
+            snabbdom_style,
+            snabbdom_eventlisteners
+        ])
+
+        // 定义h函数
+        let h = snabbdom.h;
+
+        let container = document.getElementById('container');
+
+        // 生成vnode
+        let vnode = h('ul#list', {}, [
+            h('li.item', {}, 'Item 1'),
+            h('li.item', {}, 'Item 2')
+        ]);
+
+        // 两种渲染方式，一种是首次对某一个区域进行渲染，另一种是对于一个node的更姓渲染，对于更新渲染，之间的不同点，只会渲染不不同的地方。
+        patch(container, vnode);
+
+        let btn = document.getElementById('btn-change');
+        btn.addEventListener('click', function () {
+            let newNode = h('ul#list', {}, [
+            h('li.item', {}, 'Item 1'),
+            h('li.item', {}, 'Item B'),
+            h('li.item', {}, 'Item 3')
+            ]);
+            patch(vnode, newNode);
+        })
+    </script>
+</body>
+</html>

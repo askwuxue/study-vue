@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="title">
+        <button id="btn">submit</button> 
+    </div>
+    <div>
+        <ul id="list"></ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.js"></script>
+    <script type="text/javascript">
+        let $title = $('#title');
+        let $btn = $('#btn');
+        let $list = $('#list');
+        
+        $btn.click(function () {
+            let title = $title.val();
+            if (!title) {
+                return;
+            }
+            console.log(title);
+            let $li = $(`<li>${title}</li>`);
+            $list.append($li);
+            $title.val('');
+        })
+
+    </script>
+</body>
+</html>

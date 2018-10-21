@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>Object.defineProperty</p>
+
+    <script>
+        let obj = {};
+        let _name = 'wuxue';
+        // 对obj的name进行监听
+        Object.defineProperty(obj, 'name', {
+            // 对获取name属性进行监听
+            get() {
+                console.log('get: ' + _name);
+                return _name;
+            },
+            // 对设置name属性进行监听
+            set(newVal) {
+                console.log('set ' + newVal);
+                _name = newVal;
+            }
+        })
+    </script>
+</body>
+</html>

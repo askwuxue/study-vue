@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let obj = {
+            name: 'askwuxue',
+            age: 22,
+            getAddress () {
+                alert('徐州');
+            }
+        }
+
+        function fn () {
+            // with改变this的指向，下面可以省略this
+            with (obj) {
+                alert(name);
+                alert(age);
+                getAddress();
+            }
+        }
+        fn();
+    </script>
+</body>
+</html>

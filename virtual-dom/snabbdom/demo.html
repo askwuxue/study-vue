@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+    <button id="btn-change">change</button>
+    <!-- 引用snabbdom -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom-class.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom-props.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom-style.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/snabbdom-eventlisteners.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snabbdom/0.7.1/h.js"></script>
+    <script>
+        let snabbdom = window.snabbdom
+        // 定义patch
+        let patch = snabbdom.init([
+            snabbdom_class,
+            snabbdom_props,
+            snabbdom_style,
+            snabbdom_eventlisteners
+        ])
+        // 定义h函数
+        let h = snabbdom.h;
+        // 原始数据
+        const data = [
+            {
+                name: '张三',
+                age: '20',
+                address: '北京'
+            },
+            {
+                name: '李四',
+                age: '22',
+                address: '上海'
+            },
+            {
+                name: '王五',
+                age: '23',
+                address: '广州'
+            }
+        ]
+        // 将表头的数据也放在data中
+        data.unshift({
+            name: '姓名',
+            age: '年龄',
+            address: '地址'
+        })
+        let container = document.getElementById('container');
+        let btn = document.getElementById('btn-change');
+        
+        // 定义node
+        let node;
+        // 定义渲染函数
+        function render (data) {
+            let newNode = h('table', {}, data.map((item) => {
+                let tds = [];
+                for (let key in item) {
+                    if (item.hasOwnProperty(key)) {
+                        tds.push(h('td', {}, `${item[key]}`));
+                    }
+                }
+                return h('tr', {}, tds)
+            }))
+            if (node) {
+                // 再次渲染
+                patch(node, newNode);
+            } else {
+                // 初次渲染
+                patch(container, newNode);
+                node = newNode;
+            }
+        }
+        // 初次渲染
+        render(data);
+
+        btn.addEventListener('click', function () {
+            // 数据改变，重新进行虚拟dom渲染
+            data[3].name = 'wuxue';
+            data[2].address = '西安';
+            render(data);
+        })
+    </script>
+</body>
+</html>

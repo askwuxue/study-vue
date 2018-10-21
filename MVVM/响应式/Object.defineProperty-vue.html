@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let vm = {};
+        let data = {
+            name: 'wuxue',
+            age: '22'
+        };
+
+        for (const key in data) {
+            (function (key) { 
+                // 给VM对象定义了 name, age 代理
+                Object.defineProperty(vm, key, {
+                    // 监听
+                    get () {
+                        return data[key];
+                    },
+                    // 监听
+                    set (newVal) {
+                        data[key] = newVal;
+                    }
+                })
+            })(key)
+        }
+    </script>
+</body>
+</html>

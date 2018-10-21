@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue-2.5.13.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ price }}</p>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                price: 100
+            }
+        })
+
+        // 手写render函数
+        function render () {
+            // this就是VM对象
+            with (this) {
+                return _c(
+                    'div',
+                    {
+                        attrs: {'id': 'app'}
+                    },
+                    [
+                        _c('p', [_v(_c(price))])
+                    ]
+                )
+            }
+        }
+    </script>
+</body>
+</html>
